@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {BallAnimation} from './components/ball.animation';
 
 export default function App() {
   return (
     <View style={styles.root}>
-      <Text>Hello world</Text>
+      <BallAnimation />
     </View>
   );
 }
