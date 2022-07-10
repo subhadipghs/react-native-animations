@@ -1,22 +1,35 @@
 import React from 'react';
-import {Animated, StyleSheet, View} from 'react-native';
+import {Button, Text, Animated, StyleSheet, View, Easing} from 'react-native';
 
 function BallAnimation() {
-  const value = React.useRef(new Animated.Value(0)).current;
+  const opacity = React.useRef(new Animated.Value(0)).current;
 
-  React.useEffect(() => {
-    Animated.timing(value, {
+  const size = opacity.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 100],
+  });
+
+  const animation = easing => {
+    opacity.setValue(0);
+    Animated.timing(opacity, {
       toValue: 1,
-      duration: 10000,
-      useNativeDriver: true,
+      easing,
+      duration: 2500,
     }).start();
-  }, [value]);
+  };
 
   return (
     <View>
-      <Animated.View style={{opacity: value}}>
-        <View style={styles.ball}></View>
-      </Animated.View>
+      <View style={{marginBottom: 10}}>
+        <Button
+          title="Press Me"
+          onPress={() => animation(Easing.quad)}></Button>
+      </View>
+      <Animated.View
+        style={[
+          styles.ball,
+          {opacity, height: size, width: size},
+        ]}></Animated.View>
     </View>
   );
 }
